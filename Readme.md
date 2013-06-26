@@ -1,7 +1,7 @@
 
 # reap
 
-  Monitor and unlink old files.
+  Monitor and unlink old files from the specified directories.
 
 ## Installation
 
