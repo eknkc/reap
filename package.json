@@ -2,7 +2,7 @@
   "name": "reap",
   "version": "0.0.1",
   "description": "Monitor and unlink old files",
-  "keywords": [],
+  "keywords": ["reap", "gc", "reaper", "tmp", "temporary"],
   "author": "TJ Holowaychuk <tj@vision-media.ca>",
   "repository": {
     "type": "git",
@@ -11,7 +11,8 @@
   "dependencies": {
     "commander": "~1.2.0",
     "ms": "~0.6.1",
-    "batch": "~0.4.0"
+    "batch": "~0.4.0",
+    "debug": "*"
   },
   "devDependencies": {
     "mocha": "*",
