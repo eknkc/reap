@@ -13,7 +13,7 @@
 
     -h, --help            output usage information
     -t, --threshold <ms>  file unlink threshold [1 hour]
-    -o, --once            run once and exit
+    -s, --single          run a single time and exit
 
 ```
 
