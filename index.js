@@ -4,6 +4,7 @@
  */
 
 var Emitter = require('events').EventEmitter;
+var debug = require('debug')('reap');
 var Batch = require('batch');
 var path = require('path');
 var resolve = path.resolve;
@@ -48,17 +49,32 @@ Reaper.prototype.__proto__ = Emitter.prototype;
  */
 
 Reaper.prototype.old = function(file, fn){
-  var ms = this.threshold;
+  var threshold = this.threshold;
   fs.stat(file, function(err, s){
     if (err) return fn(err);
     var d = new Date - s.mtime;
-    fn(null, d > ms, s);
+    debug('%s age: %s', file, ms(d));
+    fn(null, d > threshold, s);
   });
 };
 
-Reaper.prototype.watch = function(dir, fn){
+/**
+ * Mark `dir` for watching.
+ *
+ * @param {String} dir
+ * @api public
+ */
+
+Reaper.prototype.watch = function(dir){
   this.dirs.push(dir);
 };
+
+/**
+ * Start reaper and invoke `fn(err, files)` when completed.
+ *
+ * @param {Function} fn
+ * @api public
+ */
 
 Reaper.prototype.start = function(fn){
   var self = this;
