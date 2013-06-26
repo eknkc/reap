@@ -6,6 +6,13 @@ var reaper = new Reaper({
   threshold: '1 minute'
 });
 
+function old(file) {
+  var min = 60000;
+  var old = new Date(new Date - (5 * min));
+  fs.writeFileSync(file);
+  fs.utimesSync(file, old, old);
+}
+
 describe('Reaper#old(file, fn)', function(){
   it('should return true when exceeding the threshold', function(done){
     fs.writeFileSync('/tmp/foo');
@@ -18,11 +25,7 @@ describe('Reaper#old(file, fn)', function(){
   })
 
   it('should return false otherwise', function(done){
-    var min = 60000;
-    var old = new Date(new Date - (5 * min));
-    fs.writeFileSync('/tmp/foo');
-    fs.utimesSync('/tmp/foo', old, old);
-
+    old('/tmp/foo');
     reaper.old('/tmp/foo', function(err, bool){
       if (err) return done(err);
       bool.should.be.true;
