@@ -27,6 +27,8 @@ $ npm install -g reap
 
 ```
 
+$ reap /tmp --threshold 30m &
+
   ...
   rm /tmp/BTServer_stderr.log 6.55kb
   rm /tmp/BTServer_stdout.log 1.42kb
