@@ -1,0 +1,20 @@
+{
+  "name": "reap",
+  "version": "0.0.1",
+  "description": "Monitor and unlink old files",
+  "keywords": [],
+  "author": "TJ Holowaychuk <tj@vision-media.ca>",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/visionmedia/reap.git"
+  },
+  "dependencies": {
+    "commander": "~1.2.0",
+    "ms": "~0.6.1"
+  },
+  "devDependencies": {
+    "mocha": "*",
+    "should": "*"
+  },
+  "main": "index"
+}
