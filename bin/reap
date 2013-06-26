@@ -30,7 +30,7 @@ if (!dirs.length) throw new Error('<dirs> required');
 
 // setup
 
-var reaper = new Reaper({ threshold: threshold }));
+var reaper = new Reaper({ threshold: threshold });
 
 dirs.forEach(function(dir){
   reaper.watch(dir);
@@ -45,8 +45,10 @@ reaper.on('remove', function(file){
 function run() {
   reaper.start(function(err, files){
     if (err) throw err;
-    console.log('  rm %d files', files.length);
-    console.log('  rm %s total', bytes(files.reduce(size)));
+    console.log();
+    console.log('  %d files', files.length);
+    console.log('  %s total', bytes(files.reduce(size, 0)));
+    console.log();
   });
 }
 
