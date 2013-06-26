@@ -91,6 +91,7 @@ Reaper.prototype.start = function(fn){
         self.old(file, function(err, old, s){
           if (err) return done(err);
           if (!old) return done();
+          if (!s.isFile()) return done();
           s.path = file;
           debug('unlink %s', file);
           self.emit('remove', s);
