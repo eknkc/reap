@@ -4,7 +4,7 @@ var Reaper = require('..');
 var fs = require('fs');
 
 var reaper = new Reaper({
-  threshold: '1 minute'
+  threshold: 60000
 });
 
 function oldFile(file) {
@@ -56,7 +56,7 @@ describe('Reaper#watch(dir)', function(){
   })
 
   it('should remove old files from the directory', function(done){
-    var reaper = new Reaper({ threshold: '1m' });
+    var reaper = new Reaper({ threshold: 60000 });
 
     reaper.on('remove', function(file){
       assert('string' == typeof file.path);

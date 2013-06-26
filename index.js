@@ -21,7 +21,7 @@ module.exports = Reaper;
  * Initialize a new `Reaper` with the given `opts`.
  *
  * - `concurrency` stat() concurrency
- * - `threshold` string or number of milliseconds
+ * - `threshold` number in milliseconds
  *
  * @param {Object} [opts]
  * @api public
@@ -31,7 +31,8 @@ function Reaper(opts) {
   opts = opts || {};
   this.dirs = [];
   this.concurrency = opts.concurrency || 10;
-  this.threshold = ms(opts.threshold || '1 day');
+  this.threshold = opts.threshold || ms('30 minutes');
+  debug('threshold %s', this.threshold);
 }
 
 /**
