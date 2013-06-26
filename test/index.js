@@ -68,6 +68,11 @@ describe('Reaper#watch(dir)', function(){
     reaper.start(function(err, files){
       if (err) return done(err);
       files.should.have.length(3);
+      assert(!fs.existsSync('/tmp/reap/tobi'));
+      assert(!fs.existsSync('/tmp/reap/loki'));
+      assert(!fs.existsSync('/tmp/reap/jane'));
+      assert(fs.existsSync('/tmp/reap/manny'));
+      assert(fs.existsSync('/tmp/reap/luna'));
       done();
     });
   })
