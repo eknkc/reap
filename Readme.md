@@ -3,6 +3,12 @@
 
   Monitor and unlink old files.
 
+## Installation
+
+```
+$ npm install -g reap
+```
+
 ## Usage
 
 ```
