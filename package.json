@@ -25,5 +25,8 @@
     "mocha": "*",
     "should": "*"
   },
+  "bin": {
+    "reap": "bin/reap"
+  },
   "main": "index"
 }
