@@ -16,7 +16,7 @@ var ms = require('ms');
 program
   .usage('[options] <dirs>')
   .option('-t, --threshold <ms>', 'file unlink threshold [1 hour]', '1 hour')
-  .option('-o, --once', 'run once and exit')
+  .option('-s, --single', 'run a single time and exit')
   .parse(process.argv);
 
 // threshold
@@ -54,8 +54,7 @@ function run() {
 
 run();
 
-if (program.once) return;
-setInterval(run, threshold);
+if (!program.single) setInterval(run, threshold);
 
 function size(sum, file) {
   return sum + file.size;
