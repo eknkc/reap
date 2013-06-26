@@ -83,23 +83,35 @@ Reaper.prototype.start = function(fn){
   batch.concurrency(10);
 
   this.dirs.forEach(function(dir){
-    fs.readdir(dir, function(err, files){
-      if (err) return fn(err);
-      files.forEach(function(file){
-        batch.push(function(done){
-          file = resolve(dir, file);
-          self.old(file, function(err, old, s){
-            if (err) return done(err);
-            if (!old) return done();
-            fs.unlink(file, function(err){
-              s.path = file;
-              done(err, s);
-            });
+    var files = fs.readdirSync(dir);
+    debug('dir %s has %s files', dir, files.length);
+    files.forEach(function(file){
+      batch.push(function(done){
+        file = resolve(dir, file);
+        self.old(file, function(err, old, s){
+          if (err) return done(err);
+          if (!old) return done();
+          s.path = file;
+          debug('unlink %s', file);
+          self.emit('remove', s);
+          fs.unlink(file, function(err){
+            done(err, s);
           });
         });
       });
     });
   });
 
-  batch.end(fn);
+  batch.end(function(err, files){
+    if (err) return fn(err);
+    fn(null, files.filter(empty));
+  });
 };
+
+/**
+ * Filter undefineds.
+ */
+
+function empty(f) {
+  return null != f;
+}
