@@ -3,6 +3,7 @@
  * Module dependencies.
  */
 
+var Emitter = require('events').EventEmitter;
 var fs = require('fs');
 var ms = require('ms');
 
@@ -25,6 +26,12 @@ function Reaper(opts) {
   opts = opts || {};
   this.threshold = ms(opts.threshold || '1 day');
 }
+
+/**
+ * Inherit from `Emitter.prototype`.
+ */
+
+Reaper.prototype.__proto__ = Emitter.prototype;
 
 /**
  * Check if `file` is old.
