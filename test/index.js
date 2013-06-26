@@ -33,3 +33,32 @@ describe('Reaper#old(file, fn)', function(){
     });
   })
 })
+
+describe('Reaper#watch(dir)', function(){
+  beforeEach(function(){
+    try {
+      fs.mkdirSync('/tmp/reap', 0755);
+      old('/tmp/reap/tobi');
+      old('/tmp/reap/loki');
+      old('/tmp/reap/jane');
+      fs.writeFileSync('/tmp/reap/manny');
+      fs.writeFileSync('/tmp/reap/luna');
+    } catch (err) {
+      // ignore
+    }
+  })
+
+  it('should remove old files from the directory', function(done){
+    var reaper = new Reaper({ threshold: '1m' });
+
+    reaper.on('remove', function(file){
+      console.log(file);
+    });
+
+    reaper.watch('/tmp/reap');
+
+    reaper.start(function(err, files){
+      console.log(files);
+    });
+  })
+})
