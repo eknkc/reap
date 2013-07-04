@@ -30,9 +30,7 @@ module.exports = Reaper;
 function Reaper(opts) {
   opts = opts || {};
   this.dirs = [];
-  this.filterFn = function(file, fn){
-    fn(true);
-  };
+  this._filter = function(file, fn){ fn(true) };
   this.concurrency = opts.concurrency || 10;
   this.threshold = opts.threshold || ms('30 minutes');
   debug('threshold %s', this.threshold);
@@ -75,12 +73,12 @@ Reaper.prototype.watch = function(dir){
 
 /**
  * Set the filter `fn` to determine which files to reap
- * 
+ *
  * @param {Function} fn
  */
 
 Reaper.prototype.filter = function(fn){
-  this.filterFn = fn;
+  this._filter = fn;
 };
 
 /**
@@ -107,8 +105,8 @@ Reaper.prototype.start = function(fn){
           if (!old) return done();
           if (!s.isFile()) return done();
           s.path = file;
-          self.filterFn(s, function(doUnlink){
-            if (!doUnlink) return done();
+          self._filter(s, function(unlink){
+            if (!unlink) return done();
             debug('unlink %s', file);
             self.emit('remove', s);
             fs.unlink(file, function(err){

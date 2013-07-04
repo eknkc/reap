@@ -86,15 +86,15 @@ describe('Reaper#filter(fn)', function() {
     } catch (err) {
       // ignore
     }
-    
+
     oldFile('/tmp/reap-filter-test/a');
     oldFile('/tmp/reap-filter-test/b');
     oldFile('/tmp/reap-filter-test/c');
-    
+
     reaper = new Reaper({ threshold: 60000 });
     reaper.watch('/tmp/reap-filter-test');
   })
-  
+
   it('should reap all files by default', function(done) {
     reaper.start(function(err, files) {
       if (err) return done(err);
@@ -105,11 +105,12 @@ describe('Reaper#filter(fn)', function() {
       done();
     });
   })
-  
+
   it('should not reap files that are filtered out', function(done){
     reaper.filter(function(file, fn){
       fn(file.path !== '/tmp/reap-filter-test/b');
     });
+
     reaper.start(function(err, files) {
       if (err) return done(err);
       files.should.have.length(2);
@@ -119,5 +120,5 @@ describe('Reaper#filter(fn)', function() {
       done();
     });
   })
-  
+
 });
