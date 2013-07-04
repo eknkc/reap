@@ -1,6 +1,6 @@
 {
   "name": "reap",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Monitor and unlink old files",
   "keywords": [
     "reap",
